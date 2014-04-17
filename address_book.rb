@@ -86,6 +86,10 @@ class Person
   def save_values
     self.first_name = @first_name_field.text.strip.chomp
     self.last_name = @last_name_field.text.strip.chomp
+    self.email = @email_field.text.strip.chomp
+    self.github = @github_field.text.strip.chomp
+    self.twitter = @twitter_field.text.strip.chomp
+    self.fun_fact = @fun_fact_field.text.strip.chomp
 
     # TODO: 2. Finish the implementation to set the other fields.
   end
