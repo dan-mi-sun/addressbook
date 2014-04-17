@@ -77,12 +77,12 @@ class Person
       @fun_fact_field = shoes.edit_line
     end
     
-     def convert_string_to_class(selected_string)
+     def convert_string_to_class(selected_string, x)
         case selected_string
         when "Trainee"
-          Trainee.new
+          Trainee.new(x).draw
         when "Instructor"
-          Instructor.new
+          Instructor.new(x).draw
         end
 
     # TODO 4. Add fields for the user to fill in, but only if they are
@@ -131,7 +131,7 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       caption "Type"
       list_box :items => %w(Trainee Instructor) do |selected|
         debug selected.text
-        @person = Person.convert_to_class(selected, @form) 
+        @person = Person.convert_to_class(selected.text, @form) 
         @person.draw 
 
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
