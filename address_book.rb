@@ -9,6 +9,16 @@ $address_book = []
 # for, the superclass of Trainee and Instructor
 #
 class Person
+
+  def self.convert_string_to_class(selected_string, x)
+        case selected_string
+        when "Trainee"
+          Trainee.new(x)
+        when "Instructor"
+          Instructor.new(x)
+        end
+  end
+
   attr_accessor :shoes
   attr_accessor :first_name
   attr_accessor :last_name
@@ -16,8 +26,7 @@ class Person
   attr_accessor :github
   attr_accessor :twitter
   attr_accessor :fun_fact
-  attr_accessor :teaching_experience
-  attr_accessor :preferred_text_editor
+
 
   def initialize(shoes)
     self.shoes = shoes
@@ -47,25 +56,6 @@ class Person
   end
 
   # Renders some labels and textboxes to prompt the user for input
-  def preferred_text_editor(selected_string)
-    case selected_string 
-      when Trainee
-      shoes.flow do
-        shoes.caption "Preferred Text Editor"
-        @preferred_text_editor = shoes.edit_line
-      end
-    end
-  end
-  
-  def teaching_experience(selected_string)
-    case selected_string 
-      when Instructor
-      shoes.flow do
-        shoes.caption "Teaching Experience"
-        @teaching_experience = shoes.edit_line
-      end
-    end
-  end
   
   def draw_questions
     shoes.flow do
@@ -97,14 +87,6 @@ class Person
       shoes.caption "Fun Fact"
       @fun_fact_field = shoes.edit_line
     end
-    
-     def convert_string_to_class(selected_string, x)
-        case selected_string
-        when "Trainee"
-          Trainee.new(x).draw
-        when "Instructor"
-          Instructor.new(x).draw
-        end
 
     # TODO 4. Add fields for the user to fill in, but only if they are
     # relevant to the given user type.
@@ -125,11 +107,11 @@ class Person
 end
 
 class Trainee < Person
-  
-end
+    attr_accessor :preferred_text_editor
 end
 
 class Instructor < Person
+    attr_accessor :teaching_experience
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
@@ -149,7 +131,7 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       caption "Type"
       list_box :items => %w(Trainee Instructor) do |selected|
         debug selected.text
-        @person = Person.convert_to_class(selected.text, @form) 
+        @person = Person.convert_string_to_class(selected.text, @form) 
         @person.draw 
 
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
