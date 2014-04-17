@@ -16,6 +16,8 @@ class Person
   attr_accessor :github
   attr_accessor :twitter
   attr_accessor :fun_fact
+  attr_accessor :teaching_experience
+  attr_accessor :preferred_text_editor
 
   def initialize(shoes)
     self.shoes = shoes
@@ -45,7 +47,26 @@ class Person
   end
 
   # Renders some labels and textboxes to prompt the user for input
-  #
+  def preferred_text_editor(selected_string)
+    case selected_string 
+      when Trainee
+      shoes.flow do
+        shoes.caption "Preferred Text Editor"
+        @preferred_text_editor = shoes.edit_line
+      end
+    end
+  end
+  
+  def teaching_experience(selected_string)
+    case selected_string 
+      when Instructor
+      shoes.flow do
+        shoes.caption "Teaching Experience"
+        @teaching_experience = shoes.edit_line
+      end
+    end
+  end
+  
   def draw_questions
     shoes.flow do
       shoes.caption "First name"
@@ -104,14 +125,11 @@ class Person
 end
 
 class Trainee < Person
-if  @person == Trainee
-  attr_accessor :preferred_text_editor
-  @person.draw
+  
 end
 end
 
 class Instructor < Person
-  attr_accessor :teaching_experience
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
