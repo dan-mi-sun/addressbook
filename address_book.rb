@@ -93,7 +93,7 @@ class Person
     self.twitter = @twitter_field.text.strip.chomp
     self.fun_fact = @fun_fact_field.text.strip.chomp
 
-    # TODO: 2. Finish the implementation to set the other fields.
+    # TODO: 2. Finish the implementation to set the other fields. DONE
   end
 end
 
