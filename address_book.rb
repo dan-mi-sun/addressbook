@@ -15,7 +15,7 @@ class Person
   attr_accessor :email
   attr_accessor :github
   attr_accessor :twitter
-  attr_accessor :fan_facts
+  attr_accessor :fun_fact
 
   # TODO 1. Add more! DONE
 
@@ -25,6 +25,15 @@ class Person
 
   # Displays the input form to the user
   #
+  def self.make_person(selected, form) 
+    case selected
+    when "Trainee"
+      Trainee.new(form)
+    when "Instructor"
+      Instructor.new(form)
+    end
+  end
+
   def draw
     shoes.clear
     shoes.append do
@@ -121,10 +130,13 @@ Shoes.app title: "Ruby Address Book", width: 520 do
     flow do
       caption "Type"
       list_box :items => %w(Trainee Instructor) do |selected|
+    #    binding.pry
         debug selected.text
 
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
         # and store the result in @person. Show the fields for the user to fill in
+        @person = Person.make_person(selected.text, @form)
+        @person.draw
       end
     end
 
