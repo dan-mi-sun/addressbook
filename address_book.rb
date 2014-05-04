@@ -108,10 +108,37 @@ end
 
 class Trainee < Person
   attr_accessor :preferred_text_editor
+
+
+  def draw_questions
+    super
+    shoes.flow do
+      shoes.caption "First name"
+      @preferred_text_editor_field = shoes.edit_line
+    end
+  end
+
+  def save_values
+    super
+    self.preferred_text_editor = @preferred_text_editor_field.text.strip.chomp
+  end
 end
 
 class Instructor < Person
   attr_accessor :teaching_experience
+
+  def draw_questions
+    super
+    shoes.flow do
+      shoes.caption "First name"
+      @teaching_experience_field = shoes.edit_line
+    end
+  end
+
+  def save_values
+    super
+    self.teaching_experience = @teaching_experience_field.text.strip.chomp
+  end
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
