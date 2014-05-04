@@ -34,6 +34,17 @@ class Person
     end
   end
 
+  def self.find_contact(name)
+    debug $address_book
+    $address_book.select do |contact|
+
+      if contact.last_name[0]  == name
+        yield contact
+      end
+
+    end
+  end
+
   def draw
     shoes.clear
     shoes.append do
@@ -113,7 +124,7 @@ class Trainee < Person
   def draw_questions
     super
     shoes.flow do
-      shoes.caption "First name"
+      shoes.caption "Preferred Text Editor"
       @preferred_text_editor_field = shoes.edit_line
     end
   end
@@ -130,7 +141,7 @@ class Instructor < Person
   def draw_questions
     super
     shoes.flow do
-      shoes.caption "First name"
+      shoes.caption "Teaching Experience"
       @teaching_experience_field = shoes.edit_line
     end
   end
@@ -149,6 +160,11 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       button letter do
         # TODO 5. Show each of the Person objects in the address_book where the
         # last name matches.
+        Person.find_contact(letter) do |contact|
+
+          print "#{contact.first_name} #{contact.last_name}"
+
+        end
       end
     end
   end
