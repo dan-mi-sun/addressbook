@@ -17,7 +17,7 @@ class Person
   attr_accessor :twitter
   attr_accessor :fan_facts
 
-  # TODO 1. Add more!
+  # TODO 1. Add more! DONE
 
   def initialize(shoes)
     self.shoes = shoes
@@ -57,6 +57,26 @@ class Person
     shoes.flow do
       shoes.caption "Last name"
       @last_name_field = shoes.edit_line
+    end
+    
+    shoes.flow do
+      shoes.caption "Email"
+      @email_field = shoes.edit_line
+    end
+
+    shoes.flow do
+      shoes.caption "Github"
+      @github_field = shoes.edit_line
+    end
+
+    shoes.flow do
+      shoes.caption "Twitter"
+      @twitter_field = shoes.edit_line
+    end
+
+    shoes.flow do
+      shoes.caption "Fun fact"
+      @fun_fact_field = shoes.edit_line
     end
 
     # TODO 4. Add fields for the user to fill in, but only if they are
