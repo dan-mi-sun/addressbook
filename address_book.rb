@@ -12,6 +12,11 @@ class Person
   attr_accessor :shoes
   attr_accessor :first_name
   attr_accessor :last_name
+  attr_accessor :email
+  attr_accessor :github
+  attr_accessor :twitter
+  attr_accessor :fan_facts
+
   # TODO 1. Add more!
 
   def initialize(shoes)
