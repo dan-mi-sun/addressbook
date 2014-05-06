@@ -9,6 +9,16 @@ $address_book = []
 # for, the superclass of Trainee and Instructor
 #
 class Person
+
+  def self.convert_string_to_class(selected_string, x)
+        case selected_string
+        when "Trainee"
+          Trainee.new(x)
+        when "Instructor"
+          Instructor.new(x)
+        end
+  end
+
   attr_accessor :shoes
   attr_accessor :first_name
   attr_accessor :last_name
@@ -60,6 +70,7 @@ class Person
 
         # TODO: 6. Open a address_book.yml YAML file and write it out to disc
         shoes.debug self.to_yaml
+        File.open("address_book.yml", "w") { |f| f.write $address_book.to_yaml }
 
         shoes.alert 'Saved'
       end
@@ -67,7 +78,7 @@ class Person
   end
 
   # Renders some labels and textboxes to prompt the user for input
-  #
+  
   def draw_questions
     shoes.flow do
       shoes.caption "First name"
@@ -96,6 +107,26 @@ class Person
 
     shoes.flow do
       shoes.caption "Fun fact"
+      @fun_fact_field = shoes.edit_line
+    end
+
+    shoes.flow do
+      shoes.caption "Email"
+      @email_field = shoes.edit_line
+    end
+    
+    shoes.flow do
+      shoes.caption "Github"
+      @github_field = shoes.edit_line
+    end
+
+    shoes.flow do
+      shoes.caption "Twitter"
+      @twitter_field = shoes.edit_line
+    end
+
+    shoes.flow do
+      shoes.caption "Fun Fact"
       @fun_fact_field = shoes.edit_line
     end
 
@@ -150,6 +181,11 @@ class Instructor < Person
     super
     self.teaching_experience = @teaching_experience_field.text.strip.chomp
   end
+    attr_accessor :preferred_text_editor
+end
+
+class Instructor < Person
+    attr_accessor :teaching_experience
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
@@ -175,6 +211,8 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       list_box :items => %w(Trainee Instructor) do |selected|
     #    binding.pry
         debug selected.text
+        @person = Person.convert_string_to_class(selected.text, @form) 
+        @person.draw 
 
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
         # and store the result in @person. Show the fields for the user to fill in
