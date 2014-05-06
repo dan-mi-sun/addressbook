@@ -10,12 +10,12 @@ $address_book = []
 #
 class Person
 
-  def self.convert_string_to_class(selected_string, x)
+  def self.convert_string_to_class(selected_string, form)
         case selected_string
         when "Trainee"
-          Trainee.new(x)
+          Trainee.new(form)
         when "Instructor"
-          Instructor.new(x)
+          Instructor.new(form)
         end
   end
 
