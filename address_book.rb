@@ -63,7 +63,9 @@ class Person
 
         # TODO: 6. Open a address_book.yml YAML file and write it out to disc
         shoes.debug self.to_yaml
-        File.open("address_book.yml", "w") { |f| f.write $address_book.to_yaml }
+        begin
+          File.open("address_book.yml", "w") { |f| f.write $address_book.to_yaml }
+        end
 
         shoes.alert 'Saved'
       end
@@ -100,26 +102,6 @@ class Person
 
     shoes.flow do
       shoes.caption "Fun fact"
-      @fun_fact_field = shoes.edit_line
-    end
-
-    shoes.flow do
-      shoes.caption "Email"
-      @email_field = shoes.edit_line
-    end
-    
-    shoes.flow do
-      shoes.caption "Github"
-      @github_field = shoes.edit_line
-    end
-
-    shoes.flow do
-      shoes.caption "Twitter"
-      @twitter_field = shoes.edit_line
-    end
-
-    shoes.flow do
-      shoes.caption "Fun Fact"
       @fun_fact_field = shoes.edit_line
     end
 
@@ -192,15 +174,15 @@ class Instructor < Person
     super
     self.teaching_experience = @teaching_experience_field.text.strip.chomp
   end
-    attr_accessor :preferred_text_editor
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
   background rgb(240, 250, 208)
-
-  File.open("address_book.yml") do |f|
-    YAML.load_documents(f) do |yf|
-      $address_book = yf
+  begin
+    File.open("address_book.yml") do |f|
+      YAML.load_documents(f) do |yf|
+        $address_book = yf
+      end
     end
   end
 
@@ -222,10 +204,10 @@ Shoes.app title: "Ruby Address Book", width: 520 do
   stack margin: 20 do
     flow do
       caption "Type"
-      list_box :items => %w(Trainee Instructor) do |selected|
-    #    binding.pry
+      list_box :items => %w(Trainee Instructor MrMiyagi) do |selected|
+        #    binding.pry
         debug selected.text
-        @person = Person.convert_string_to_class(selected.text, @form) 
+        @person = Person.make_person(selected.text, @form) 
         @person.draw 
 
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
