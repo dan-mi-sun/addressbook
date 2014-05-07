@@ -190,6 +190,13 @@ end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
   background rgb(240, 250, 208)
+
+  File.open("address_book.yml") do |f|
+    YAML.load_documents(f) do |yf|
+      $address_book = yf
+    end
+  end
+
   # The row of buttons to lookup Person objects in the address_book
   ('A'..'Z').each do |letter|
     flow width: 40 do
