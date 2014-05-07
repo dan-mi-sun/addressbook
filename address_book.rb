@@ -10,15 +10,6 @@ $address_book = []
 #
 class Person
 
-  def self.convert_string_to_class(selected_string, form)
-        case selected_string
-        when "Trainee"
-          Trainee.new(form)
-        when "Instructor"
-          Instructor.new(form)
-        end
-  end
-
   attr_accessor :shoes
   attr_accessor :first_name
   attr_accessor :last_name
@@ -41,6 +32,8 @@ class Person
       Trainee.new(form)
     when "Instructor"
       Instructor.new(form)
+    when "MrMiyagi"
+      MrMiyagi.new(form)
     end
   end
 
@@ -148,6 +141,24 @@ class Person
   end
 end
 
+class MrMiyagi < Person
+  attr_accessor :watering_the_bonsai
+
+
+  def draw_questions
+    super
+    shoes.flow do
+      shoes.caption "Water the Bonsai?"
+      @watering_the_bonsai_field = shoes.edit_line
+    end
+  end
+
+  def save_values
+    super
+    self.watering_the_bonsai= @watering_the_bonsai_field.text.strip.chomp
+  end
+end
+
 class Trainee < Person
   attr_accessor :preferred_text_editor
 
@@ -182,10 +193,6 @@ class Instructor < Person
     self.teaching_experience = @teaching_experience_field.text.strip.chomp
   end
     attr_accessor :preferred_text_editor
-end
-
-class Instructor < Person
-    attr_accessor :teaching_experience
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
