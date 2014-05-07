@@ -5,15 +5,9 @@ require './app/mrmiyagi'
 require './app/instructor'
 require './app/trainee'
 
-
 # We're using an Array as our data store. This the ONE AND ONLY TIME we'll use
 # a global variable!
 $address_book = []
-
-# A Person represents an individual that we want to store contact information
-# for, the superclass of Trainee and Instructor
-#
-
 
 Shoes.app title: "Ruby Address Book", width: 520 do
   background rgb(240, 250, 208)
