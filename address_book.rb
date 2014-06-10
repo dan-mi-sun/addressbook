@@ -38,11 +38,6 @@ Shoes.app title: "Ruby Address Book", width: 520 do
     flow do
       caption "Type"
       list_box :items => %w(Trainee Instructor MrMiyagi) do |selected|
-        #    binding.pry
-        debug selected.text
-        @person = Person.make_person(selected.text, @form) 
-        @person.draw 
-
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
         # and store the result in @person. Show the fields for the user to fill in
         @person = Person.make_person(selected.text, @form)

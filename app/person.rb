@@ -35,7 +35,6 @@ class Person
       if contact.last_name[0]  == name
         yield contact
       end
-
     end
   end
 
